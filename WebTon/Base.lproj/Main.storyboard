@@ -71,7 +71,7 @@
                                                             </button>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your http address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YuT-6z-kTZ">
                                                                 <rect key="frame" x="110" y="0.0" width="210" height="40"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" red="1" green="0.93463062401941532" blue="0.89564707160254542" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -80,6 +80,7 @@
                                                                 </connections>
                                                             </textField>
                                                         </subviews>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="RVR-ye-6Ew" firstAttribute="leading" secondItem="Hfz-EV-A4H" secondAttribute="trailing" constant="5" id="6Mz-bQ-Rht"/>
                                                             <constraint firstItem="YuT-6z-kTZ" firstAttribute="top" secondItem="rJ3-cU-lEJ" secondAttribute="top" id="6d8-ZK-YWX"/>
@@ -135,7 +136,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4db-2N-Mvu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="J1e-tK-4Gf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4db-2N-Mvu" secondAttribute="bottom" id="SiD-5x-aGl"/>
@@ -147,6 +148,7 @@
                         <outlet property="backButton" destination="Hfz-EV-A4H" id="6DI-9K-CCX"/>
                         <outlet property="bottomScrollConstraint" destination="mPA-dg-e9Y" id="Ubn-nN-sts"/>
                         <outlet property="mainView" destination="vP0-1s-d4Y" id="ek4-um-qut"/>
+                        <outlet property="navigationBar" destination="rJ3-cU-lEJ" id="0XP-9D-SJi"/>
                         <outlet property="searchTextField" destination="YuT-6z-kTZ" id="vlx-P7-DVq"/>
                         <outlet property="webScrollView" destination="yC3-aO-xs8" id="LoH-jh-69B"/>
                         <outlet property="webView" destination="aBI-Eg-ih4" id="zgF-og-2aX"/>

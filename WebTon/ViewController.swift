@@ -20,6 +20,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var yandexButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var navigationBar: UIView!
+    
+    
     
     //MARK: - Lifecycles
     
@@ -31,30 +34,31 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         openWebBrowser()
+        openURLlink(address: "http://onliner.by")
     }
+    
     
     //MARK: - IBActions button
     
     @IBAction func yandexButtonPressed() {
-        openURLlink(address: "http://yandex.ru")
-        yandexButton.isSelected = true
-        backButton.isHidden = false
+        if searchTextField.text == "" {
+            openURLlink(address: "http://yandex.ru")
+        } else {
+            openUsersURL()
+        }
         hideKeyboard()
-        searchTextField.text = nil
     }
     
     @IBAction func youtubeButtonPressed() {
         openURLlink(address: "http://youtube.com")
         hideKeyboard()
-        searchTextField.text = nil
     }
     
     @IBAction func backButtonPressed() {
         if previousArrayIsEmpty {
-            print("Массив пустой")
+            print("URLs doesn't exits")
         } else {
             openPreviousURL()
-            print("Массив заполнен")
         }
         hideKeyboard()
     }
@@ -68,18 +72,25 @@ class ViewController: UIViewController {
     
     private func openURLlink(address: String) {
         let address = address
-        if searchTextField.text != nil {
-            guard let url = URL(string: address) else { return }
-            let request = URLRequest(url: url)
-            browserWebView.load(request)
-            previousURLArray.append(url)
-            checkBackSelectedButton()
+        guard let url = URL(string: address) else { return }
+        let request = URLRequest(url: url)
+        browserWebView.load(request)
+        searchTextField.text = ""
+        previousURLArray.append(url)
+        checkBackSelectedButton()
+    }
+    
+    private func openUsersURL() {
+        guard let urlText = searchTextField.text else { return }
+        if !urlText.contains("http://") {
+            openURLlink(address: "https://www.google.com/search?q=\(urlText)")
+        } else {
+            openURLlink(address: urlText)
         }
     }
     
     private func openPreviousURL() {
         let request = URLRequest(url: previousURLArray.last ?? previousURLArray[0])
-        print(request)
         browserWebView.load(request)
         previousURLArray.removeLast()
         checkBackSelectedButton()
@@ -101,7 +112,7 @@ class ViewController: UIViewController {
         if notification.name == UIResponder.keyboardWillHideNotification {
             bottomScrollConstraint.constant = 0
         } else {
-            bottomScrollConstraint.constant = keyboardScreenEndFrame.height - 20
+            bottomScrollConstraint.constant = keyboardScreenEndFrame.size.height
         }
         view.needsUpdateConstraints()
         UIView.animate(withDuration: animationDuration) {
