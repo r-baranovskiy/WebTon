@@ -7,7 +7,8 @@ class ViewController: UIViewController {
     //MARK: - Constants
     
     private var browserWebView = WKWebView()
-    private var previousURL = String()
+    private var previousURL:String? = nil
+    private var currentURL = String()
     
     //MARK: - Outlets
     
@@ -16,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var webView: UIView!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var yandexButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     //MARK: - Lifecycles
     
@@ -32,7 +35,11 @@ class ViewController: UIViewController {
     //MARK: - IBActions button
     
     @IBAction func yandexButtonPressed() {
-        openURLlink(address: "http://yandex.ru")
+        if !yandexButton.isSelected {
+            openURLlink(address: "http://yandex.ru")
+            yandexButton.isSelected = true
+            backButton.isHidden = false
+        }
         hideKeyboard()
         searchTextField.text = nil
     }
@@ -44,6 +51,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed() {
+        if previousURL != nil {
+            openURLlink(address: previousURL ?? "http://yandex.ru")
+        }
         hideKeyboard()
     }
     
@@ -56,10 +66,14 @@ class ViewController: UIViewController {
     
     private func openURLlink(address: String) {
         let address = address
-        guard let url = URL(string: address) else { return }
-        let request = URLRequest(url: url)
-        
-        browserWebView.load(request)
+        if searchTextField.text != nil {
+            guard let url = URL(string: address) else { return }
+            let request = URLRequest(url: url)
+            previousURL = currentURL
+            currentURL = address
+            browserWebView.load(request)
+        }
+
     }
     
     //MARK: - Settings keyboard
@@ -70,6 +84,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
+
         guard let userInfo = notification.userInfo,
               let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue,
               let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
@@ -77,11 +92,8 @@ class ViewController: UIViewController {
         if notification.name == UIResponder.keyboardWillHideNotification {
             bottomScrollConstraint.constant = 0
         } else {
-            bottomScrollConstraint.constant = keyboardScreenEndFrame.height + 10
+            bottomScrollConstraint.constant = keyboardScreenEndFrame.height - 20
         }
-//        mainView.needsUpdateConstraints()
-//        webView.needsUpdateConstraints()
-//        browserWebView.needsUpdateConstraints()
         view.needsUpdateConstraints()
         UIView.animate(withDuration: animationDuration) {
             self.view.layoutIfNeeded()
