@@ -7,7 +7,9 @@ class ViewController: UIViewController {
     //MARK: - Constants
     
     private var browserWebView = WKWebView()
-    private var previousURL = [String]()
+    private var previousURLArray = [URL]()
+    private var previosCurrentIndex = Int()
+    private var previousArrayIsEmpty = true
     
     //MARK: - Outlets
     
@@ -34,11 +36,9 @@ class ViewController: UIViewController {
     //MARK: - IBActions button
     
     @IBAction func yandexButtonPressed() {
-        if !yandexButton.isSelected {
-            openURLlink(address: "http://yandex.ru")
-            yandexButton.isSelected = true
-            backButton.isHidden = false
-        }
+        openURLlink(address: "http://yandex.ru")
+        yandexButton.isSelected = true
+        backButton.isHidden = false
         hideKeyboard()
         searchTextField.text = nil
     }
@@ -50,7 +50,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed() {
-        
+        if previousArrayIsEmpty {
+            print("Массив пустой")
+        } else {
+            openPreviousURL()
+            print("Массив заполнен")
+        }
         hideKeyboard()
     }
     
@@ -67,8 +72,17 @@ class ViewController: UIViewController {
             guard let url = URL(string: address) else { return }
             let request = URLRequest(url: url)
             browserWebView.load(request)
+            previousURLArray.append(url)
+            checkBackSelectedButton()
         }
-
+    }
+    
+    private func openPreviousURL() {
+        let request = URLRequest(url: previousURLArray.last ?? previousURLArray[0])
+        print(request)
+        browserWebView.load(request)
+        previousURLArray.removeLast()
+        checkBackSelectedButton()
     }
     
     //MARK: - Settings keyboard
@@ -79,7 +93,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
-
+        
         guard let userInfo = notification.userInfo,
               let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue,
               let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
@@ -92,6 +106,16 @@ class ViewController: UIViewController {
         view.needsUpdateConstraints()
         UIView.animate(withDuration: animationDuration) {
             self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func checkBackSelectedButton() {
+        if previousURLArray.isEmpty {
+            backButton.isSelected = false
+            previousArrayIsEmpty = true
+        } else {
+            backButton.isSelected = true
+            previousArrayIsEmpty = false
         }
     }
 }

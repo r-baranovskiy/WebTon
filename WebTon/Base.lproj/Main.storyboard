@@ -10,7 +10,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WebTon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -33,10 +32,13 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Hfz-EV-A4H" secondAttribute="height" multiplier="5:4" id="5tC-g2-XDh"/>
                                                                 </constraints>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain">
-                                                                    <backgroundConfiguration key="background" image="back"/>
-                                                                </buttonConfiguration>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" backgroundImage="back-notfill">
+                                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <state key="disabled" backgroundImage="back-notfill"/>
+                                                                <state key="selected" backgroundImage="back"/>
                                                                 <connections>
                                                                     <action selector="backButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="I6i-Pf-bCm"/>
                                                                 </connections>
@@ -151,12 +153,14 @@
                         <outlet property="yandexButton" destination="S4j-45-QVy" id="dJ2-uY-Z0z"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="125.59999999999999" y="79.802955665024641"/>
         </scene>
     </scenes>
     <resources>
         <image name="back" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="back-notfill" width="170.66667175292969" height="170.66667175292969"/>
         <image name="yandex (1)" width="170.66667175292969" height="170.66667175292969"/>
         <image name="youtube" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
