@@ -37,6 +37,9 @@
                                                                 <buttonConfiguration key="configuration" style="plain">
                                                                     <backgroundConfiguration key="background" image="back"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="backButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="I6i-Pf-bCm"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S4j-45-QVy">
                                                                 <rect key="frame" x="325" y="0.0" width="50" height="40"/>
@@ -60,6 +63,9 @@
                                                                 <buttonConfiguration key="configuration" style="plain">
                                                                     <backgroundConfiguration key="background" image="youtube"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="youtubeButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="H0R-6k-bPj"/>
+                                                                </connections>
                                                             </button>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your http address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YuT-6z-kTZ">
                                                                 <rect key="frame" x="110" y="0.0" width="210" height="40"/>

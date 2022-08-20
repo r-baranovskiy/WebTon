@@ -7,8 +7,7 @@ class ViewController: UIViewController {
     //MARK: - Constants
     
     private var browserWebView = WKWebView()
-    private var previousURL:String? = nil
-    private var currentURL = String()
+    private var previousURL = [String]()
     
     //MARK: - Outlets
     
@@ -51,9 +50,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed() {
-        if previousURL != nil {
-            openURLlink(address: previousURL ?? "http://yandex.ru")
-        }
+        
         hideKeyboard()
     }
     
@@ -69,8 +66,6 @@ class ViewController: UIViewController {
         if searchTextField.text != nil {
             guard let url = URL(string: address) else { return }
             let request = URLRequest(url: url)
-            previousURL = currentURL
-            currentURL = address
             browserWebView.load(request)
         }
 
