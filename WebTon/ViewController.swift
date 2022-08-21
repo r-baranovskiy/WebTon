@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         openWebBrowser()
         openURLlink(address: "http://onliner.by")
+        backButton.isSelected = false
     }
     
     
