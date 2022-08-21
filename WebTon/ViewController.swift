@@ -10,6 +10,7 @@ class ViewController: UIViewController {
     private var previousURLArray = [URL]()
     private var previosCurrentIndex = Int()
     private var previousArrayIsEmpty = true
+    private var firstPage = String()
     
     //MARK: - Outlets
     
@@ -29,13 +30,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyboardNotifications()
+        firstPage = "http://onliner.by"
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         openWebBrowser()
-        openURLlink(address: "http://onliner.by")
-        backButton.isSelected = false
     }
     
     
@@ -69,6 +69,10 @@ class ViewController: UIViewController {
     private func openWebBrowser() {
         browserWebView = WKWebView(frame: webView.frame)
         webView.addSubview(browserWebView)
+        guard let url = URL(string: firstPage) else { return }
+        let request = URLRequest(url: url)
+        browserWebView.load(request)
+        previousURLArray.append(url)
     }
     
     private func openURLlink(address: String) {
@@ -97,6 +101,18 @@ class ViewController: UIViewController {
         checkBackSelectedButton()
     }
     
+    private func checkBackSelectedButton() {
+        if previousURLArray.isEmpty {
+            backButton.isSelected = false
+            previousArrayIsEmpty = true
+            yandexButton.isSelected = false
+        } else {
+            yandexButton.isSelected = true
+            backButton.isSelected = true
+            previousArrayIsEmpty = false
+        }
+    }
+    
     //MARK: - Settings keyboard
     
     private func registerForKeyboardNotifications() {
@@ -118,16 +134,6 @@ class ViewController: UIViewController {
         view.needsUpdateConstraints()
         UIView.animate(withDuration: animationDuration) {
             self.view.layoutIfNeeded()
-        }
-    }
-    
-    private func checkBackSelectedButton() {
-        if previousURLArray.isEmpty {
-            backButton.isSelected = false
-            previousArrayIsEmpty = true
-        } else {
-            backButton.isSelected = true
-            previousArrayIsEmpty = false
         }
     }
 }

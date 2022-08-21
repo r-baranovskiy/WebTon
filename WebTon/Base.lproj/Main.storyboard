@@ -48,10 +48,13 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="S4j-45-QVy" secondAttribute="height" multiplier="5:4" id="xgt-vC-grf"/>
                                                                 </constraints>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain">
-                                                                    <backgroundConfiguration key="background" image="yandex (1)"/>
-                                                                </buttonConfiguration>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="Button" backgroundImage="yandex (1)">
+                                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <state key="disabled" backgroundImage="yandex (1)"/>
+                                                                <state key="selected" backgroundImage="right-arrow"/>
                                                                 <connections>
                                                                     <action selector="yandexButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="YVu-NE-yYR"/>
                                                                 </connections>
@@ -163,6 +166,7 @@
     <resources>
         <image name="back" width="170.66667175292969" height="170.66667175292969"/>
         <image name="back-notfill" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="right-arrow" width="170.66667175292969" height="170.66667175292969"/>
         <image name="yandex (1)" width="170.66667175292969" height="170.66667175292969"/>
         <image name="youtube" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
