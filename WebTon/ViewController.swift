@@ -10,7 +10,6 @@ class ViewController: UIViewController {
     private var previousURLArray = [URL]()
     private var previosCurrentIndex = Int()
     private var previousArrayIsEmpty = true
-    private var firstPage = String()
     
     //MARK: - Outlets
     
@@ -30,7 +29,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyboardNotifications()
-        firstPage = "http://onliner.by"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,11 +40,12 @@ class ViewController: UIViewController {
     //MARK: - IBActions button
     
     @IBAction func yandexButtonPressed() {
-        if searchTextField.text == "" {
+        if searchTextField.text == "" && !yandexButton.isSelected {
             openURLlink(address: "http://yandex.ru")
-        } else {
+        } else if searchTextField.text != "" {
             openUsersURL()
         }
+        checkBackSelectedButton()
         hideKeyboard()
     }
     
@@ -69,10 +68,6 @@ class ViewController: UIViewController {
     private func openWebBrowser() {
         browserWebView = WKWebView(frame: webView.frame)
         webView.addSubview(browserWebView)
-        guard let url = URL(string: firstPage) else { return }
-        let request = URLRequest(url: url)
-        browserWebView.load(request)
-        previousURLArray.append(url)
     }
     
     private func openURLlink(address: String) {
