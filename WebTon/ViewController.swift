@@ -7,9 +7,6 @@ class ViewController: UIViewController {
     //MARK: - Constants
     
     private var browserWebView = WKWebView()
-    private var previousURLArray = [URL]()
-    private var previosCurrentIndex = Int()
-    private var previousArrayIsEmpty = true
     
     //MARK: - Outlets
     
@@ -45,21 +42,23 @@ class ViewController: UIViewController {
         } else if searchTextField.text != "" {
             openUsersURL()
         }
-        checkBackSelectedButton()
+        yandexButton.isSelected = true
+        checkIsOnBackButton()
         hideKeyboard()
     }
     
     @IBAction func youtubeButtonPressed() {
-        openURLlink(address: "http://youtube.com")
+        browserWebView.reload()
         hideKeyboard()
     }
     
     @IBAction func backButtonPressed() {
-        if previousArrayIsEmpty {
-            print("URLs doesn't exits")
+        if browserWebView.canGoBack && backButton.isSelected {
+            browserWebView.goBack()
         } else {
-            openPreviousURL()
+            yandexButton.isSelected = false
         }
+        checkIsOnBackButton()
         hideKeyboard()
     }
     
@@ -76,8 +75,6 @@ class ViewController: UIViewController {
         let request = URLRequest(url: url)
         browserWebView.load(request)
         searchTextField.text = ""
-        previousURLArray.append(url)
-        checkBackSelectedButton()
     }
     
     private func openUsersURL() {
@@ -89,24 +86,15 @@ class ViewController: UIViewController {
         }
     }
     
-    private func openPreviousURL() {
-        let request = URLRequest(url: previousURLArray.last ?? previousURLArray[0])
-        browserWebView.load(request)
-        previousURLArray.removeLast()
-        checkBackSelectedButton()
-    }
-    
-    private func checkBackSelectedButton() {
-        if previousURLArray.isEmpty {
-            backButton.isSelected = false
-            previousArrayIsEmpty = true
-            yandexButton.isSelected = false
-        } else {
-            yandexButton.isSelected = true
+    private func checkIsOnBackButton() {
+        if browserWebView.canGoBack {
             backButton.isSelected = true
-            previousArrayIsEmpty = false
+        } else {
+            backButton.isSelected = false
         }
     }
+    
+    
     
     //MARK: - Settings keyboard
     
@@ -146,4 +134,5 @@ extension ViewController: UITextFieldDelegate {
         view.endEditing(true)
     }
 }
+
 
